@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>848 Interview Prep</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f3f0;
+  color: #1a1a1a;
+}
+
+.app-container {
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: linear-gradient(135deg, #185fa5 0%, #378add 100%);
+  color: white;
+  padding: 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 13px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.lesson-progress {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 0.5px solid #d3d1c7;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #888780;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #e8e6e0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #378add, #185fa5);
+  transition: width 0.3s ease;
+}
+
+.lesson-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  gap: 8px;
+}
+
+.lesson-btn {
+  padding: 0.6rem 0.5rem;
+  border: 0.5px solid #d3d1c7;
+  background: white;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.lesson-btn:hover {
+  background: #f9f8f6;
+  border-color: #185fa5;
+}
+
+.lesson-btn.active {
+  background: #185fa5;
+  color: white;
+  border-color: #185fa5;
+}
+
+.lesson-btn.complete::before {
+  content: "✓ ";
+  margin-right: 2px;
+}
+
+.question-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  border: 0.5px solid #d3d1c7;
+  margin-bottom: 1rem;
+}
+
+.question-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.question-type {
+  font-size: 11px;
+  font-weight: 600;
+  color: #378add;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.question-number {
+  font-size: 12px;
+  color: #888780;
+}
+
+.question-text {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.option {
+  padding: 0.75rem 1rem;
+  border: 0.5px solid #d3d1c7;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.option:hover {
+  background: #f9f8f6;
+  border-color: #378add;
+}
+
+.option.selected {
+  background: #e6f1fb;
+  border-color: #378add;
+  font-weight: 500;
+}
+
+.option.correct {
+  background: #eaf3de;
+  border-color: #639922;
+  color: #3b6d11;
+}
+
+.option.incorrect {
+  background: #fcebeb;
+  border-color: #e24b4a;
+  color: #a32d2d;
+}
+
+.fill-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 0.75rem;
+}
+
+.fill-input:focus {
+  outline: none;
+  border-color: #378add;
+  box-shadow: 0 0 0 2px rgba(55, 138, 221, 0.1);
+}
+
+.explanation {
+  background: #f9f8f6;
+  border-left: 3px solid #378add;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 1rem;
+  color: #888780;
+}
+
+.explanation.correct {
+  border-left-color: #639922;
+  background: #eaf3de;
+  color: #3b6d11;
+}
+
+.explanation.incorrect {
+  border-left-color: #e24b4a;
+  background: #fcebeb;
+  color: #a32d2d;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: 0.5px solid #d3d1c7;
+  background: white;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  background: #f9f8f6;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #185fa5 0%, #378add 100%);
+  color: white;
+  border-color: #185fa5;
+}
+
+.btn.primary:hover {
+  background: linear-gradient(135deg, #0c447c 0%, #2b6bb5 100%);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #faeeda;
+  color: #854f0b;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.xp-popup {
+  position: fixed;
+  bottom: 2rem;
+  right: 1rem;
+  background: #639922;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  animation: slideUp 1s ease-out forwards;
+  z-index: 100;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completion-card {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  border: 0.5px solid #d3d1c7;
+}
+
+.completion-icon {
+  font-size: 48px;
+  margin-bottom: 1rem;
+}
+
+.completion-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.completion-text {
+  font-size: 14px;
+  color: #888780;
+  margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stat-card {
+  background: #f9f8f6;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.stat-card-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: #185fa5;
+}
+
+.stat-card-label {
+  font-size: 12px;
+  color: #888780;
+  margin-top: 0.25rem;
+}
+
+.chain-flow {
+  background: #f9f8f6;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 13px;
+  margin: 1rem 0;
+}
+
+.chain-flow div {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.chain-flow span {
+  margin-right: 8px;
+}
+
+.chain-quote {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid #d3d1c7;
+  font-style: italic;
+  color: #378add;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.empty-state-icon {
+  font-size: 36px;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  color: #888780;
+}
+
+.rehearsal-note {
+  background: #f9f8f6;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #888780;
+  margin: 1rem 0;
+}
+
+@media (max-width: 600px) {
+  .lesson-buttons {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  }
+  
+  .lesson-btn {
+    font-size: 10px;
+    padding: 0.5rem 0.4rem;
+  }
+
+  .question-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .main-content {
+    padding: 0.75rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <div class="header">
+    <h1>
+      <span style="font-size: 24px;">🎯</span> 848 Interview Prep
+    </h1>
+    <div class="header-stats">
+      <div class="stat-item">
+        <div class="stat-value" id="xp-display">0</div>
+        <div>XP</div>
+      </div>
+      <div class="stat-item">
+        <div id="streak-display" class="streak-badge">
+          <span>🔥</span>
+          <span id="streak-value">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="lesson-progress">
+      <div class="progress-label">Interview mastery</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+      <div class="lesson-buttons" id="lesson-buttons"></div>
+    </div>
+
+    <div id="content-area"></div>
+  </div>
+</div>
+
+<script>
+const LESSONS = [
+  { id: 'what', label: 'WHAT', title: '848 Basics', anchor: 'What is 848?' },
+  { id: 'why', label: 'WHY', title: 'The Value', anchor: 'Why does 848 exist?' },
+  { id: 'model', label: 'MODEL', title: 'The Approach', anchor: 'How does 848 deliver?' },
+  { id: 'tier1', label: 'TIER 1', title: 'Your Role', anchor: 'Where do you fit?' },
+  { id: 'signal', label: 'SIGNAL', title: 'Pattern Recognition', anchor: 'What can you learn?' },
+  { id: 'itil', label: 'ITIL', title: 'The Process', anchor: 'What happens next?' },
+  { id: 'customer', label: 'CUSTOMER', title: 'The Impact', anchor: 'Why does it matter?' },
+  { id: 'me', label: 'ME', title: 'Your Story', anchor: 'Why are you a fit?' },
+  { id: 'chain', label: 'CHAIN', title: 'The Golden Path', anchor: 'Connect the dots' }
+];
+
+const QUESTIONS = {
+  what: [
+    { type: 'mc', q: 'What does 848 Group primarily provide?', options: ['Break-fix support only', 'IT services, managed services and consultancy', 'Hardware sales', 'Telecom services'], correct: 1, explain: 'Correct. 848 provides a full range of IT services including service desk, infrastructure, cloud, cybersecurity, and more.' },
+    { type: 'mc', q: 'What does "People. Intelligence. Value." represent?', options: ['Employee names', '848\'s core philosophy and brand identity', 'A service tier level', 'The three founders'], correct: 1, explain: '848\'s ethos: focus on people, apply intelligent thinking, create business value.' },
+    { type: 'mc', q: 'Which of these is NOT typically part of 848\'s service offerings?', options: ['Identity and access management', 'Cloud services', 'Device management', 'Real estate development'], correct: 3, explain: 'Correct. 848 is an IT services company, not a real estate firm.' }
+  ],
+  why: [
+    { type: 'mc', q: 'What is 848\'s primary business philosophy?', options: ['Fix things as fast as possible', 'Technology should create business value', 'Charge customers the most money', 'Automate everything without strategy'], correct: 1, explain: 'Yes. The goal is to remove friction, help people work effectively, and create long-term value.' },
+    { type: 'mc', q: 'How does 848 differ from traditional break-fix IT?', options: ['Same approach, just faster', 'Problem → Fix → Close → Repeat vs Problem → Fix → Information → Insight → Improvement → Prevention', 'They charge less', 'They only work with startups'], correct: 1, explain: 'Traditional MSPs fix and close. 848 treats each ticket as information that feeds into wider service improvements.' },
+    { type: 'scenario', q: 'A user reports that Outlook keeps crashing. In the 848 model, what should happen after you resolve their immediate issue?', options: ['Close the ticket and move on', 'Log the issue, look for patterns, flag to Problem Management if there are multiple reports, and investigate potential improvements', 'Blame the user for their setup', 'Ignore it'], correct: 1, explain: 'Exactly. The ticket is data. If multiple users are affected, that\'s a signal for deeper investigation.' }
+  ],
+  model: [
+    { type: 'mc', q: 'What is the key difference between Ticket closing and Information gathering?', options: ['No difference', 'A closed ticket ends inquiry; information informs improvement cycles', 'Tickets are for IT, information for finance', 'They\'re the same'], correct: 1, explain: 'A ticket is not only something to close—it\'s also information about the wider service.' },
+    { type: 'fill', q: 'Fill: The 848 value-chain approach is: Problem → Fix → ___ → Insight → Improvement → Prevention', answer: 'Information', explain: 'The flow shows how each ticket feeds data into improvement.' }
+  ],
+  tier1: [
+    { type: 'mc', q: 'What is Tier 1 Service Desk responsible for?', options: ['Everything—they fix every problem', 'Listen, receive, troubleshoot, diagnose, resolve within scope, escalate appropriately, document', 'Just answering phones', 'Creating network infrastructure'], correct: 1, explain: 'Tier 1 is the front door. Key responsibility: recognize when something is bigger than individual tickets.' },
+    { type: 'scenario', q: 'A user has a password reset issue. You reset it and they\'re working again. What do you document?', options: ['Nothing—it\'s fixed', 'What happened, what you tried, what worked, and if it\'s part of a pattern', 'Just the time spent', 'The user\'s frustration level'], correct: 1, explain: 'Documentation is crucial. It creates the information trail that feeds Problem Management.' },
+    { type: 'mc', q: 'When should you escalate an issue?', options: ['Never—try to fix everything', 'When it\'s outside your scope or you\'ve exhausted troubleshooting steps', 'Only if the customer shouts', 'After spending 3 hours on it'], correct: 1, explain: 'Escalate when necessary, but escalate with good documentation so the specialist has context.' }
+  ],
+  signal: [
+    { type: 'scenario', q: 'You get three separate calls about Teams being unavailable within an hour. What signal does this represent?', options: ['Three coincidences', 'A possible infrastructure or network issue affecting multiple users', 'User error', 'Just bad luck'], correct: 1, explain: 'That\'s a pattern. Document it and flag to the infrastructure team—individual incidents mask a systemic issue.' },
+    { type: 'scenario', q: 'Repeatedly, new starters ask how to access a shared drive. What improvement opportunity does this signal?', options: ['New starters are incompetent', 'Potential documentation gap, user experience issue, or onboarding process improvement', 'Nothing', 'They should already know'], correct: 1, explain: 'Multiple repeated how-to requests suggest that something could be clearer or more automated.' },
+    { type: 'mc', q: 'What is the relationship between tickets and patterns?', options: ['No relationship', 'One ticket → incident; repeated similar tickets → pattern; patterns trigger Problem Management', 'Patterns create tickets', 'Tickets are more important than patterns'], correct: 1, explain: 'Exactly. The progression is: Incident → Information → Pattern → Problem → Root Cause → Improvement.' }
+  ],
+  itil: [
+    { type: 'mc', q: 'What is the primary goal of Incident Management?', options: ['Blame the user', 'Restore normal service as quickly as possible', 'Close tickets', 'Find the root cause'], correct: 1, explain: 'Incident Management restores service. Root cause analysis is Problem Management\'s job.' },
+    { type: 'mc', q: 'What is Problem Management?', options: ['Another word for Incident', 'Investigating underlying causes of recurring incidents to prevent recurrence', 'Customer complaints', 'Scheduling maintenance'], correct: 1, explain: 'Problem Management looks at patterns and investigates why they exist, to reduce future recurrence.' },
+    { type: 'fill', q: 'Fill: The ITIL chain is Restore → Understand → ___', answer: 'Improve', explain: 'Restore normal service, understand the root cause, then improve the service to prevent it.' },
+    { type: 'mc', q: 'What does Continual Improvement do?', options: ['It maintains the status quo', 'It systematically makes the service better and reduces recurrence', 'It costs too much', 'It\'s optional'], correct: 1, explain: 'CI is how service gets better over time. Small improvements accumulate into significant value.' }
+  ],
+  customer: [
+    { type: 'scenario', q: 'A customer\'s email is down and they can\'t send invoices. Why does the technical detail matter less than the business impact?', options: ['Because you should just guess', 'Because the customer\'s problem is not the email system—it\'s that they can\'t work', 'Because IT doesn\'t care about business', 'They\'re the same thing'], correct: 1, explain: 'Right. The technical diagnosis is one thing. The customer\'s objective is to get back to work. Frame solutions around that.' },
+    { type: 'mc', q: 'What is the ultimate purpose of IT service management?', options: ['To keep IT busy', 'To allow people to do their jobs reliably', 'To close tickets quickly', 'To spend budgets'], correct: 1, explain: 'Exactly. Reliable, secure, effective IT enables business productivity.' }
+  ],
+  me: [
+    { type: 'personal', q: 'Tell me about your relevant technical experience. (Hint: Worcester Bosch, Active Directory, Microsoft 365, Intune, PowerShell, cybersecurity path)', explain: 'Structure: What you did → what you learned → how it applies to Tier 1. Don\'t over-explain the apprenticeship end unless asked.' },
+    { type: 'personal', q: 'Why are you interested in leaving HMP for 848?', explain: 'Key message: HMP gave you workplace experience. 848 is aligned with your IT career direction. Don\'t criticize HMP.' },
+    { type: 'personal', q: 'Describe your automation mindset and why it matters.', explain: 'The pattern: "Why are humans doing this manually?" → leads to automation → same mindset applies to 848\'s CI approach: "Why are users repeatedly experiencing this?"' }
+  ],
+  chain: [
+    { type: 'chain', q: 'Connect the Golden Chain', steps: ['User', 'Incident', 'Service Desk', 'Information', 'Pattern', 'Problem/Specialist', 'Improvement', 'Better User Experience'], key_sentence: 'We\'re not just dealing with today\'s problems. We\'re helping reduce tomorrow\'s.' }
+  ]
+};
+
+let state = {
+  currentLesson: 0,
+  currentQuestion: 0,
+  lessonProgress: {},
+  totalXP: 0,
+  streak: 0,
+  answered: [],
+  showExplanation: false
+};
+
+function loadState() {
+  const saved = localStorage.getItem('848InterviewState');
+  if (saved) {
+    state = JSON.parse(saved);
+  }
+  LESSONS.forEach(l => {
+    if (!state.lessonProgress[l.id]) {
+      state.lessonProgress[l.id] = { attempted: 0, correct: 0, started: false };
+    }
+  });
+}
+
+function saveState() {
+  localStorage.setItem('848InterviewState', JSON.stringify(state));
+}
+
+function renderLessonButtons() {
+  const container = document.getElementById('lesson-buttons');
+  container.innerHTML = LESSONS.map((lesson, idx) => {
+    const progress = state.lessonProgress[lesson.id];
+    const isComplete = progress.correct > 0;
+    const isActive = idx === state.currentLesson;
+    
+    return `<button 
+      class="lesson-btn ${isActive ? 'active' : ''} ${isComplete ? 'complete' : ''}"
+      onclick="switchLesson(${idx})"
+      title="${lesson.title}"
+    >${lesson.label}</button>`;
+  }).join('');
+}
+
+function updateProgress() {
+  const total = Object.values(state.lessonProgress).filter(p => p.started).length;
+  const correct = Object.values(state.lessonProgress).filter(p => p.correct > 0).length;
+  const percentage = total > 0 ? (correct / total) * 100 : 0;
+  document.getElementById('progress-fill').style.width = percentage + '%';
+  document.getElementById('xp-display').textContent = state.totalXP;
+  document.getElementById('streak-value').textContent = state.streak;
+}
+
+function switchLesson(idx) {
+  state.currentLesson = idx;
+  state.currentQuestion = 0;
+  state.showExplanation = false;
+  state.lessonProgress[LESSONS[idx].id].started = true;
+  renderQuestions();
+  renderLessonButtons();
+  saveState();
+  window.scrollTo(0, 0);
+}
+
+function renderQuestions() {
+  const lesson = LESSONS[state.currentLesson];
+  const questions = QUESTIONS[lesson.id];
+  const container = document.getElementById('content-area');
+  
+  if (!questions || questions.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📚</div><div class="empty-state-text">Lesson content coming soon</div></div>';
+    return;
+  }
+
+  const q = questions[state.currentQuestion];
+  let html = `
+    <div class="question-card">
+      <div class="question-header">
+        <span class="question-type">${q.type === 'personal' ? 'Personal Q' : q.type === 'chain' ? 'Visual' : q.type === 'scenario' ? 'Scenario' : q.type === 'fill' ? 'Fill-in' : 'Multiple Choice'}</span>
+        <span class="question-number">${state.currentQuestion + 1} / ${questions.length}</span>
+      </div>
+      <div class="question-text">${q.q}</div>
+  `;
+
+  if (q.type === 'mc' || q.type === 'scenario') {
+    html += '<div class="options">';
+    q.options.forEach((opt, idx) => {
+      const selectedClass = state.answered[state.currentQuestion] === idx ? 'selected' : '';
+      const correctClass = state.showExplanation && idx === q.correct ? 'correct' : '';
+      const incorrectClass = state.showExplanation && state.answered[state.currentQuestion] === idx && idx !== q.correct ? 'incorrect' : '';
+      html += `<button class="option ${selectedClass} ${correctClass} ${incorrectClass}" onclick="selectOption(${idx})">${opt}</button>`;
+    });
+    html += '</div>';
+  } else if (q.type === 'fill') {
+    html += `<input type="text" class="fill-input" id="fill-input" placeholder="Your answer..." />`;
+  } else if (q.type === 'personal') {
+    html += `<div class="rehearsal-note">Open-ended rehearsal. Speak your answer aloud as if Tom is asking. No right or wrong—this is practice.</div>`;
+  } else if (q.type === 'chain') {
+    html += `<div class="chain-flow">
+      <strong>The flow:</strong><br/>
+      ${q.steps.map(s => `<div><span>→</span>${s}</div>`).join('')}
+      <div class="chain-quote">"${q.key_sentence}"</div>
+    </div>`;
+  }
+
+  if (state.showExplanation) {
+    const isCorrect = state.answered[state.currentQuestion] === QUESTIONS[lesson.id][state.currentQuestion].correct || q.type === 'personal' || q.type === 'chain';
+    html += `<div class="explanation ${isCorrect ? 'correct' : 'incorrect'}">${q.explain}</div>`;
+  }
+
+  html += '<div class="button-group">';
+  if (!state.showExplanation) {
+    html += `<button class="btn primary" onclick="checkAnswer()" ${state.answered[state.currentQuestion] === undefined && q.type !== 'personal' && q.type !== 'chain' ? 'disabled' : ''}>Check</button>`;
+  } else {
+    if (state.currentQuestion < questions.length - 1) {
+      html += `<button class="btn primary" onclick="nextQuestion()">Next</button>`;
+    } else {
+      html += `<button class="btn primary" onclick="lessonComplete()">Finish Lesson</button>`;
+    }
+  }
+  html += '</div></div>';
+
+  container.innerHTML = html;
+}
+
+function selectOption(idx) {
+  state.answered[state.currentQuestion] = idx;
+  renderQuestions();
+}
+
+function checkAnswer() {
+  const lesson = LESSONS[state.currentLesson];
+  const q = QUESTIONS[lesson.id][state.currentQuestion];
+  
+  if (q.type === 'fill') {
+    const input = document.getElementById('fill-input');
+    const answer = input.value.toLowerCase().trim();
+    const correct = q.answer.toLowerCase();
+    if (answer === correct || answer.includes(correct)) {
+      state.answered[state.currentQuestion] = true;
+      awardXP(10);
+    } else {
+      state.answered[state.currentQuestion] = false;
+    }
+  } else if (q.type === 'personal' || q.type === 'chain') {
+    state.answered[state.currentQuestion] = true;
+    awardXP(15);
+  } else {
+    if (state.answered[state.currentQuestion] === q.correct) {
+      awardXP(10);
+    }
+  }
+  
+  state.showExplanation = true;
+  renderQuestions();
+  saveState();
+}
+
+function awardXP(xp) {
+  state.totalXP += xp;
+  state.streak += 1;
+  showXPPopup(xp);
+  updateProgress();
+}
+
+function showXPPopup(xp) {
+  const popup = document.createElement('div');
+  popup.className = 'xp-popup';
+  popup.textContent = `+${xp} XP`;
+  document.body.appendChild(popup);
+  setTimeout(() => popup.remove(), 2000);
+}
+
+function nextQuestion() {
+  state.currentQuestion++;
+  state.showExplanation = false;
+  renderQuestions();
+  saveState();
+  window.scrollTo(0, 0);
+}
+
+function lessonComplete() {
+  const lesson = LESSONS[state.currentLesson];
+  const questions = QUESTIONS[lesson.id];
+  const correct = questions.filter((q, idx) => {
+    if (q.type === 'personal' || q.type === 'chain') return true;
+    return state.answered[idx] === q.correct;
+  }).length;
+  
+  state.lessonProgress[lesson.id].attempted = questions.length;
+  state.lessonProgress[lesson.id].correct = correct;
+  
+  renderCompletion();
+  saveState();
+}
+
+function renderCompletion() {
+  const lesson = LESSONS[state.currentLesson];
+  const progress = state.lessonProgress[lesson.id];
+  const accuracy = Math.round((progress.correct / progress.attempted) * 100);
+  
+  document.getElementById('content-area').innerHTML = `
+    <div class="completion-card">
+      <div class="completion-icon">🎉</div>
+      <div class="completion-title">${lesson.title} Complete!</div>
+      <div class="completion-text">You've mastered the ${lesson.label} anchor.</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-value">${accuracy}%</div>
+          <div class="stat-card-label">Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-value">${progress.correct}/${progress.attempted}</div>
+          <div class="stat-card-label">Correct</div>
+        </div>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <button class="btn primary" onclick="switchLesson(${Math.min(state.currentLesson + 1, LESSONS.length - 1)})">
+          ${state.currentLesson === LESSONS.length - 1 ? 'Review Results' : 'Next Lesson'}
+        </button>
+      </div>
+    </div>
+  `;
+  renderLessonButtons();
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+loadState();
+renderLessonButtons();
+renderQuestions();
+updateProgress();
+</script>
+
+</body>
+</html>
