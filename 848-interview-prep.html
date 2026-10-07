@@ -212,22 +212,6 @@ html, body {
   color: #a32d2d;
 }
 
-.fill-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 0.5px solid #d3d1c7;
-  border-radius: 6px;
-  font-size: 14px;
-  font-family: inherit;
-  margin-bottom: 0.75rem;
-}
-
-.fill-input:focus {
-  outline: none;
-  border-color: #378add;
-  box-shadow: 0 0 0 2px rgba(55, 138, 221, 0.1);
-}
-
 .explanation {
   background: #f9f8f6;
   border-left: 3px solid #378add;
@@ -402,6 +386,184 @@ html, body {
   color: #378add;
 }
 
+.chain-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.chain-available {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chain-step-btn {
+  padding: 0.6rem 1rem;
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chain-step-btn:hover:not(:disabled) {
+  background: #f9f8f6;
+  border-color: #378add;
+}
+
+.chain-step-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.chain-sequence {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f9f8f6;
+  padding: 1rem;
+  border-radius: 6px;
+  min-height: 200px;
+}
+
+.chain-sequence-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #378add;
+  text-transform: uppercase;
+}
+
+.chain-sequence-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem;
+  background: white;
+  border: 0.5px solid #d3d1c7;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.chain-sequence-number {
+  min-width: 24px;
+  height: 24px;
+  background: #378add;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.chain-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #888780;
+  font-size: 13px;
+}
+
+.chain-success {
+  background: #eaf3de;
+  border: 0.5px solid #639922;
+}
+
+.final-review {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  border: 0.5px solid #d3d1c7;
+}
+
+.review-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.review-icon {
+  font-size: 56px;
+  margin-bottom: 1rem;
+}
+
+.review-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #185fa5;
+}
+
+.review-subtitle {
+  font-size: 14px;
+  color: #888780;
+  margin-bottom: 1rem;
+}
+
+.review-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.review-stat {
+  background: #f9f8f6;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 0.5px solid #d3d1c7;
+}
+
+.review-stat-value {
+  font-size: 28px;
+  font-weight: 600;
+  color: #185fa5;
+  margin-bottom: 0.25rem;
+}
+
+.review-stat-label {
+  font-size: 12px;
+  color: #888780;
+  font-weight: 500;
+}
+
+.review-lessons {
+  margin-top: 2rem;
+}
+
+.review-lessons-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.review-lesson-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: #f9f8f6;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 0.5rem;
+}
+
+.review-lesson-name {
+  font-weight: 500;
+}
+
+.review-lesson-score {
+  color: #378add;
+  font-weight: 600;
+}
+
 .empty-state {
   text-align: center;
   padding: 2rem 1rem;
@@ -507,7 +669,7 @@ const QUESTIONS = {
   ],
   model: [
     { type: 'mc', q: 'What is the key difference between Ticket closing and Information gathering?', options: ['No difference', 'A closed ticket ends inquiry; information informs improvement cycles', 'Tickets are for IT, information for finance', 'They\'re the same'], correct: 1, explain: 'A ticket is not only something to close—it\'s also information about the wider service.' },
-    { type: 'fill', q: 'Fill: The 848 value-chain approach is: Problem → Fix → ___ → Insight → Improvement → Prevention', answer: 'Information', explain: 'The flow shows how each ticket feeds data into improvement.' }
+    { type: 'mc', q: 'Fill: The 848 value-chain approach is: Problem → Fix → ___ → Insight → Improvement → Prevention', options: ['Resolution', 'Information', 'Documentation', 'Analysis'], correct: 1, explain: 'The flow shows how each ticket feeds data into improvement.' }
   ],
   tier1: [
     { type: 'mc', q: 'What is Tier 1 Service Desk responsible for?', options: ['Everything—they fix every problem', 'Listen, receive, troubleshoot, diagnose, resolve within scope, escalate appropriately, document', 'Just answering phones', 'Creating network infrastructure'], correct: 1, explain: 'Tier 1 is the front door. Key responsibility: recognize when something is bigger than individual tickets.' },
@@ -522,7 +684,7 @@ const QUESTIONS = {
   itil: [
     { type: 'mc', q: 'What is the primary goal of Incident Management?', options: ['Blame the user', 'Restore normal service as quickly as possible', 'Close tickets', 'Find the root cause'], correct: 1, explain: 'Incident Management restores service. Root cause analysis is Problem Management\'s job.' },
     { type: 'mc', q: 'What is Problem Management?', options: ['Another word for Incident', 'Investigating underlying causes of recurring incidents to prevent recurrence', 'Customer complaints', 'Scheduling maintenance'], correct: 1, explain: 'Problem Management looks at patterns and investigates why they exist, to reduce future recurrence.' },
-    { type: 'fill', q: 'Fill: The ITIL chain is Restore → Understand → ___', answer: 'Improve', explain: 'Restore normal service, understand the root cause, then improve the service to prevent it.' },
+    { type: 'mc', q: 'Fill: The ITIL chain is Restore → Understand → ___', options: ['Escalate', 'Improve', 'Automate', 'Document'], correct: 1, explain: 'Restore normal service, understand the root cause, then improve the service to prevent it.' },
     { type: 'mc', q: 'What does Continual Improvement do?', options: ['It maintains the status quo', 'It systematically makes the service better and reduces recurrence', 'It costs too much', 'It\'s optional'], correct: 1, explain: 'CI is how service gets better over time. Small improvements accumulate into significant value.' }
   ],
   customer: [
@@ -535,7 +697,7 @@ const QUESTIONS = {
     { type: 'personal', q: 'Describe your automation mindset and why it matters.', explain: 'The pattern: "Why are humans doing this manually?" → leads to automation → same mindset applies to 848\'s CI approach: "Why are users repeatedly experiencing this?"' }
   ],
   chain: [
-    { type: 'chain', q: 'Connect the Golden Chain', steps: ['User', 'Incident', 'Service Desk', 'Information', 'Pattern', 'Problem/Specialist', 'Improvement', 'Better User Experience'], key_sentence: 'We\'re not just dealing with today\'s problems. We\'re helping reduce tomorrow\'s.' }
+    { type: 'chain', q: 'Connect the Golden Chain — click the steps in the correct order', steps: ['User', 'Incident', 'Service Desk', 'Information', 'Pattern', 'Problem/Specialist', 'Improvement', 'Better User Experience'], key_sentence: 'We\'re not just dealing with today\'s problems. We\'re helping reduce tomorrow\'s.' }
   ]
 };
 
@@ -552,8 +714,27 @@ let state = {
 function loadState() {
   const saved = localStorage.getItem('848InterviewState');
   if (saved) {
-    state = JSON.parse(saved);
+    try {
+      state = JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load state:', e);
+      state = {
+        currentLesson: 0,
+        currentQuestion: 0,
+        lessonProgress: {},
+        totalXP: 0,
+        streak: 0,
+        answered: [],
+        showExplanation: false,
+        chainSequence: []
+      };
+    }
   }
+  
+  if (!state.lessonProgress) {
+    state.lessonProgress = {};
+  }
+  
   LESSONS.forEach(l => {
     if (!state.lessonProgress[l.id]) {
       state.lessonProgress[l.id] = { attempted: 0, correct: 0, started: false };
@@ -567,9 +748,11 @@ function saveState() {
 
 function renderLessonButtons() {
   const container = document.getElementById('lesson-buttons');
+  if (!container) return;
+  
   container.innerHTML = LESSONS.map((lesson, idx) => {
     const progress = state.lessonProgress[lesson.id];
-    const isComplete = progress.correct > 0;
+    const isComplete = progress && progress.correct > 0;
     const isActive = idx === state.currentLesson;
     
     return `<button 
@@ -581,18 +764,30 @@ function renderLessonButtons() {
 }
 
 function updateProgress() {
-  const total = Object.values(state.lessonProgress).filter(p => p.started).length;
-  const correct = Object.values(state.lessonProgress).filter(p => p.correct > 0).length;
+  if (!state.lessonProgress) {
+    state.lessonProgress = {};
+  }
+  
+  const progressValues = Object.values(state.lessonProgress);
+  const total = progressValues.filter(p => p && p.started).length;
+  const correct = progressValues.filter(p => p && p.correct > 0).length;
   const percentage = total > 0 ? (correct / total) * 100 : 0;
-  document.getElementById('progress-fill').style.width = percentage + '%';
-  document.getElementById('xp-display').textContent = state.totalXP;
-  document.getElementById('streak-value').textContent = state.streak;
+  
+  const progressFill = document.getElementById('progress-fill');
+  if (progressFill) progressFill.style.width = percentage + '%';
+  
+  const xpDisplay = document.getElementById('xp-display');
+  if (xpDisplay) xpDisplay.textContent = state.totalXP;
+  
+  const streakValue = document.getElementById('streak-value');
+  if (streakValue) streakValue.textContent = state.streak;
 }
 
 function switchLesson(idx) {
   state.currentLesson = idx;
   state.currentQuestion = 0;
   state.showExplanation = false;
+  state.chainSequence = [];
   state.lessonProgress[LESSONS[idx].id].started = true;
   renderQuestions();
   renderLessonButtons();
@@ -602,6 +797,11 @@ function switchLesson(idx) {
 
 function renderQuestions() {
   const lesson = LESSONS[state.currentLesson];
+  if (!lesson) {
+    document.getElementById('content-area').innerHTML = '<div class="empty-state"><div class="empty-state-icon">📚</div><div class="empty-state-text">Lesson not found</div></div>';
+    return;
+  }
+  
   const questions = QUESTIONS[lesson.id];
   const container = document.getElementById('content-area');
   
@@ -611,13 +811,17 @@ function renderQuestions() {
   }
 
   const q = questions[state.currentQuestion];
+  if (!q) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">❌</div><div class="empty-state-text">Question not found</div></div>';
+    return;
+  }
   let html = `
     <div class="question-card">
       <div class="question-header">
-        <span class="question-type">${q.type === 'personal' ? 'Personal Q' : q.type === 'chain' ? 'Visual' : q.type === 'scenario' ? 'Scenario' : q.type === 'fill' ? 'Fill-in' : 'Multiple Choice'}</span>
+        <span class="question-type">${q.type === 'personal' ? 'Personal Q' : q.type === 'chain' ? 'Visual' : q.type === 'scenario' ? 'Scenario' : 'Multiple Choice'}</span>
         <span class="question-number">${state.currentQuestion + 1} / ${questions.length}</span>
       </div>
-      <div class="question-text">${q.q}</div>
+      <div class="question-text">${escapeHtml(q.q)}</div>
   `;
 
   if (q.type === 'mc' || q.type === 'scenario') {
@@ -626,24 +830,80 @@ function renderQuestions() {
       const selectedClass = state.answered[state.currentQuestion] === idx ? 'selected' : '';
       const correctClass = state.showExplanation && idx === q.correct ? 'correct' : '';
       const incorrectClass = state.showExplanation && state.answered[state.currentQuestion] === idx && idx !== q.correct ? 'incorrect' : '';
-      html += `<button class="option ${selectedClass} ${correctClass} ${incorrectClass}" onclick="selectOption(${idx})">${opt}</button>`;
+      html += `<button class="option ${selectedClass} ${correctClass} ${incorrectClass}" onclick="selectOption(${idx})">${escapeHtml(opt)}</button>`;
     });
     html += '</div>';
-  } else if (q.type === 'fill') {
-    html += `<input type="text" class="fill-input" id="fill-input" placeholder="Your answer..." />`;
   } else if (q.type === 'personal') {
     html += `<div class="rehearsal-note">Open-ended rehearsal. Speak your answer aloud as if Tom is asking. No right or wrong—this is practice.</div>`;
   } else if (q.type === 'chain') {
-    html += `<div class="chain-flow">
-      <strong>The flow:</strong><br/>
-      ${q.steps.map(s => `<div><span>→</span>${s}</div>`).join('')}
-      <div class="chain-quote">"${q.key_sentence}"</div>
-    </div>`;
+    if (!q.steps || q.steps.length === 0) {
+      html += '<div class="empty-state">Chain question not properly configured</div>';
+    } else {
+      const chainState = state.chainSequence || [];
+      
+      // Build available buttons
+      let availableButtonsHtml = '';
+      const allIndices = q.steps.map((_, i) => i);
+      const usedIndices = chainState;
+      const availableIndices = allIndices.filter(i => !usedIndices.includes(i));
+      
+      // Shuffle available indices
+      const shuffledIndices = availableIndices.sort(() => Math.random() - 0.5);
+      
+      for (let idx of shuffledIndices) {
+        const stepName = String(q.steps[idx] || '');
+        const escapedName = escapeHtml(stepName);
+        availableButtonsHtml += `<button class="chain-step-btn" onclick="addChainStep(${idx})">${escapedName}</button>`;
+      }
+      
+      // Build sequence display
+      let sequenceHtml = '';
+      if (chainState.length === 0) {
+        sequenceHtml = '<div class="chain-empty">Click a step to begin building the chain</div>';
+      } else {
+        for (let i = 0; i < chainState.length; i++) {
+          const idx = chainState[i];
+          const stepName = String(q.steps[idx] || '');
+          const escapedName = escapeHtml(stepName);
+          sequenceHtml += `<div class="chain-sequence-item"><div class="chain-sequence-number">${i + 1}</div>${escapedName}</div>`;
+        }
+        
+        // Add undo/clear controls when sequence exists
+        sequenceHtml += `<div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button class="btn" onclick="undoChainStep()" style="flex: 1;">↶ Undo Last</button>
+          <button class="btn" onclick="clearChainSequence()" style="flex: 1;">✕ Clear All</button>
+        </div>`;
+      }
+      
+      const keyQuote = String(q.key_sentence || '');
+      const escapedQuote = escapeHtml(keyQuote);
+      
+      html += `<div class="chain-builder">
+        <div>
+          <div style="font-size: 12px; font-weight: 600; color: #888780; margin-bottom: 0.75rem;">Click steps in the correct order:</div>
+          <div class="chain-available">
+            ${availableButtonsHtml}
+          </div>
+        </div>
+        <div class="chain-sequence">
+          <div class="chain-sequence-label">Your sequence</div>
+          ${sequenceHtml}
+        </div>
+      </div>
+      <div style="margin-top: 1rem; font-style: italic; color: #378add; font-size: 13px;">"${escapedQuote}"</div>`;
+    }
   }
 
   if (state.showExplanation) {
-    const isCorrect = state.answered[state.currentQuestion] === QUESTIONS[lesson.id][state.currentQuestion].correct || q.type === 'personal' || q.type === 'chain';
-    html += `<div class="explanation ${isCorrect ? 'correct' : 'incorrect'}">${q.explain}</div>`;
+    let isCorrect = false;
+    if (q.type === 'personal') {
+      isCorrect = true;
+    } else if (q.type === 'chain') {
+      isCorrect = state.answered[state.currentQuestion] === true;
+    } else {
+      isCorrect = state.answered[state.currentQuestion] === q.correct;
+    }
+    html += `<div class="explanation ${isCorrect ? 'correct' : 'incorrect'}">${escapeHtml(q.explain)}</div>`;
   }
 
   html += '<div class="button-group">';
@@ -661,26 +921,69 @@ function renderQuestions() {
   container.innerHTML = html;
 }
 
+function escapeHtml(text) {
+  if (!text || typeof text !== 'string') {
+    return '';
+  }
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
 function selectOption(idx) {
   state.answered[state.currentQuestion] = idx;
   renderQuestions();
 }
 
+function addChainStep(idx) {
+  if (!state.chainSequence) {
+    state.chainSequence = [];
+  }
+  state.chainSequence.push(idx);
+  renderQuestions();
+}
+
+function undoChainStep() {
+  if (state.chainSequence && state.chainSequence.length > 0) {
+    state.chainSequence.pop();
+    renderQuestions();
+  }
+}
+
+function clearChainSequence() {
+  state.chainSequence = [];
+  renderQuestions();
+}
+
 function checkAnswer() {
   const lesson = LESSONS[state.currentLesson];
-  const q = QUESTIONS[lesson.id][state.currentQuestion];
+  if (!lesson) return;
   
-  if (q.type === 'fill') {
-    const input = document.getElementById('fill-input');
-    const answer = input.value.toLowerCase().trim();
-    const correct = q.answer.toLowerCase();
-    if (answer === correct || answer.includes(correct)) {
-      state.answered[state.currentQuestion] = true;
-      awardXP(10);
+  const q = QUESTIONS[lesson.id][state.currentQuestion];
+  if (!q) return;
+  
+  if (q.type === 'chain') {
+    // Check if the sequence is complete and correct
+    const chainState = state.chainSequence || [];
+    if (chainState.length === q.steps.length) {
+      // Validate the sequence matches the correct order (0,1,2,3...)
+      const isCorrect = chainState.every((val, idx) => val === idx);
+      if (isCorrect) {
+        state.answered[state.currentQuestion] = true;
+        awardXP(20); // Extra XP for chain
+      } else {
+        state.answered[state.currentQuestion] = false;
+      }
     } else {
-      state.answered[state.currentQuestion] = false;
+      alert('Complete the chain by clicking all steps in the correct order!');
+      return;
     }
-  } else if (q.type === 'personal' || q.type === 'chain') {
+  } else if (q.type === 'personal') {
     state.answered[state.currentQuestion] = true;
     awardXP(15);
   } else {
@@ -712,6 +1015,7 @@ function showXPPopup(xp) {
 function nextQuestion() {
   state.currentQuestion++;
   state.showExplanation = false;
+  state.chainSequence = [];
   renderQuestions();
   saveState();
   window.scrollTo(0, 0);
@@ -719,7 +1023,11 @@ function nextQuestion() {
 
 function lessonComplete() {
   const lesson = LESSONS[state.currentLesson];
+  if (!lesson) return;
+  
   const questions = QUESTIONS[lesson.id];
+  if (!questions || questions.length === 0) return;
+  
   const correct = questions.filter((q, idx) => {
     if (q.type === 'personal' || q.type === 'chain') return true;
     return state.answered[idx] === q.correct;
@@ -734,14 +1042,24 @@ function lessonComplete() {
 
 function renderCompletion() {
   const lesson = LESSONS[state.currentLesson];
+  if (!lesson) {
+    renderFinalReview();
+    return;
+  }
   const progress = state.lessonProgress[lesson.id];
   const accuracy = Math.round((progress.correct / progress.attempted) * 100);
+  
+  // If this is the final lesson, show final review instead
+  if (state.currentLesson === LESSONS.length - 1) {
+    renderFinalReview();
+    return;
+  }
   
   document.getElementById('content-area').innerHTML = `
     <div class="completion-card">
       <div class="completion-icon">🎉</div>
-      <div class="completion-title">${lesson.title} Complete!</div>
-      <div class="completion-text">You've mastered the ${lesson.label} anchor.</div>
+      <div class="completion-title">${escapeHtml(lesson.title)} Complete!</div>
+      <div class="completion-text">You've mastered the ${escapeHtml(lesson.label)} anchor.</div>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-card-value">${accuracy}%</div>
@@ -753,8 +1071,8 @@ function renderCompletion() {
         </div>
       </div>
       <div style="margin-top: 1.5rem;">
-        <button class="btn primary" onclick="switchLesson(${Math.min(state.currentLesson + 1, LESSONS.length - 1)})">
-          ${state.currentLesson === LESSONS.length - 1 ? 'Review Results' : 'Next Lesson'}
+        <button class="btn primary" onclick="switchLesson(${state.currentLesson + 1})">
+          Next Lesson
         </button>
       </div>
     </div>
@@ -762,6 +1080,105 @@ function renderCompletion() {
   renderLessonButtons();
   updateProgress();
   window.scrollTo(0, 0);
+}
+
+function renderFinalReview() {
+  if (!state.lessonProgress) {
+    state.lessonProgress = {};
+  }
+  
+  const totalLessons = LESSONS.length;
+  const progressValues = Object.values(state.lessonProgress);
+  const completedLessons = progressValues.filter(p => p && p.correct > 0).length;
+  const totalCorrect = progressValues.reduce((sum, p) => sum + (p ? p.correct : 0), 0);
+  const totalAttempted = progressValues.reduce((sum, p) => sum + (p ? p.attempted : 0), 0);
+  const overallAccuracy = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+  
+  let lessonsHtml = LESSONS.map(lesson => {
+    const progress = state.lessonProgress[lesson.id];
+    if (!progress || progress.attempted === 0) return '';
+    const accuracy = Math.round((progress.correct / progress.attempted) * 100);
+    return `
+      <div class="review-lesson-item">
+        <span class="review-lesson-name">${escapeHtml(lesson.label)} — ${escapeHtml(lesson.title)}</span>
+        <span class="review-lesson-score">${progress.correct}/${progress.attempted} (${accuracy}%)</span>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('content-area').innerHTML = `
+    <div class="final-review">
+      <div class="review-header">
+        <div class="review-icon">🏆</div>
+        <div class="review-title">Interview Prep Complete!</div>
+        <div class="review-subtitle">You're ready for tomorrow. Now go rest your brain.</div>
+      </div>
+      
+      <div class="review-stats">
+        <div class="review-stat">
+          <div class="review-stat-value">${state.totalXP}</div>
+          <div class="review-stat-label">Total XP</div>
+        </div>
+        <div class="review-stat">
+          <div class="review-stat-value">${overallAccuracy}%</div>
+          <div class="review-stat-label">Overall Accuracy</div>
+        </div>
+        <div class="review-stat">
+          <div class="review-stat-value">${completedLessons}/${totalLessons}</div>
+          <div class="review-stat-label">Lessons Completed</div>
+        </div>
+        <div class="review-stat">
+          <div class="review-stat-value">${state.streak}</div>
+          <div class="review-stat-label">Streak 🔥</div>
+        </div>
+      </div>
+      
+      <div class="review-lessons">
+        <div class="review-lessons-title">Performance by Anchor</div>
+        ${lessonsHtml}
+      </div>
+      
+      <div style="margin-top: 2rem; padding-top: 2rem; border-top: 0.5px solid #d3d1c7;">
+        <div style="background: #eaf3de; border-left: 3px solid #639922; padding: 1rem; border-radius: 4px; font-size: 13px; line-height: 1.6; color: #3b6d11;">
+          <strong>Key reminders for Thursday:</strong><br/>
+          ✓ Sleep well tonight<br/>
+          ✓ Review the 8 anchors and Golden Chain tomorrow morning<br/>
+          ✓ Arrive early with time to spare<br/>
+          ✓ You know this stuff—just have the conversation<br/>
+          ✓ If stuck, pause, think, identify the anchor, answer
+        </div>
+      </div>
+      
+      <div style="margin-top: 1.5rem;">
+        <button class="btn primary" onclick="resetAllProgress()">
+          Start Over
+        </button>
+      </div>
+    </div>
+  `;
+  renderLessonButtons();
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function resetAllProgress() {
+  if (confirm('Are you sure? This will reset all progress.')) {
+    state.lessonProgress = {};
+    state.currentLesson = 0;
+    state.currentQuestion = 0;
+    state.totalXP = 0;
+    state.streak = 0;
+    state.answered = [];
+    state.showExplanation = false;
+    state.chainSequence = [];
+    
+    LESSONS.forEach(l => {
+      state.lessonProgress[l.id] = { attempted: 0, correct: 0, started: false };
+    });
+    
+    saveState();
+    switchLesson(0);
+  }
 }
 
 loadState();
