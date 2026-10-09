@@ -2,7 +2,7 @@
 
 ## Overview
 
-A gamified, interactive learning webapp built to prepare for technical interviews under time constraints. Inspired by the effectiveness of spaced repetition and game mechanics (Duolingo-style learning), this tool transforms interview notes into an engaging study experience.
+A gamified, interactive learning webapp built to prepare for a technical interview under time constraints. Inspired by the effectiveness of spaced repetition and game mechanics (Duolingo-style learning), this tool transforms interview notes into an engaging study experience.
 
 ## The Problem
 
